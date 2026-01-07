@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
 
 const slides = [
   {
@@ -76,7 +78,7 @@ export default function HeroCarousel() {
       {/* Content Overlay */}
       <div className="absolute inset-0 z-20 flex items-center">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="max-w-2xl">
+          <div className="max-w-3xl">
             <h1 className="text-4xl font-bold tracking-tight text-white sm:text-6xl drop-shadow-lg">
               Sơn Nhà Chất Lượng Cao
             </h1>
@@ -85,18 +87,16 @@ export default function HeroCarousel() {
               chất lượng cao, bền đẹp và thân thiện với môi trường.
             </p>
             <div className="mt-10 flex items-center gap-x-6">
-              <a
-                href="/products"
-                className="rounded-full bg-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-lg transition-all hover:bg-blue-700 hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
-              >
-                Xem sản phẩm
-              </a>
-              <a
-                href="/contact"
-                className="rounded-full border-2 border-white bg-white/10 backdrop-blur-sm px-6 py-3 text-sm font-semibold text-white transition-all hover:bg-white/20 hover:scale-105"
-              >
-                Liên hệ ngay
-              </a>
+              <Button variant="glass" size="lg" asChild>
+                <Link href="/products">
+                  Xem sản phẩm
+                </Link>
+              </Button>
+              <Button variant="glass" size="lg" asChild>
+                <Link href="/contact">
+                  Liên hệ ngay
+                </Link>
+              </Button>
             </div>
           </div>
         </div>

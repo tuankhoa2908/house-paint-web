@@ -1,18 +1,10 @@
-import Image from "next/image";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
-import HeroCarousel from "@/components/HeroCarousel";
+import HeroCarousel from "@/components/homepage/HeroCarousel";
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen flex-col bg-white dark:bg-black">
-      {/* Header */}
-      <Header />
-
-      {/* Main Content */}
-      <main className="flex-1">
-        {/* Hero Carousel Section */}
-        <HeroCarousel />
+    <>
+      {/* Hero Carousel Section */}
+      <HeroCarousel />
 
         {/* Features Section */}
         <section className="py-24 sm:py-32">
@@ -75,10 +67,6 @@ export default function Home() {
             </div>
           </div>
         </section>
-      </main>
-
-      {/* Footer */}
-      <Footer />
-    </div>
+    </>
   );
 }

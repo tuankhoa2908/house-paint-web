@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import { Button } from '@/components/ui/button';
 
 export default function Header() {
   return (
@@ -10,7 +11,7 @@ export default function Header() {
           <Link href="/" className="flex items-center gap-2">
             <Image
               src="/next.svg"
-              alt="House Paint Store"
+              alt="Sơn Bình Minh"
               width={120}
               height={24}
               priority
@@ -49,12 +50,11 @@ export default function Header() {
 
         {/* CTA Button */}
         <div className="flex items-center gap-4">
-          <Link
-            href="/contact"
-            className="rounded-full bg-blue-600 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-          >
-            Nhận tư vấn
-          </Link>
+          <Button asChild>
+            <Link href="/contact">
+              Nhận tư vấn
+            </Link>
+          </Button>
         </div>
       </nav>
     </header>
