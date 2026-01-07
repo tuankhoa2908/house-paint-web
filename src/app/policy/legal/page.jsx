@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
+import { infoLegaPolicy } from '@/constants/policy.constant';
 
 export const metadata = {
   title: 'Chính sách pháp lý | Sơn Bình Minh',
@@ -163,12 +164,7 @@ export default function LegalPage() {
                         Thông tin của bạn chỉ được sử dụng cho các mục đích:
                       </p>
                       <ul className="space-y-2 text-gray-700">
-                        {[
-                          'Xử lý và giao hàng cho đơn hàng',
-                          'Hỗ trợ khách hàng và giải đáp thắc mắc',
-                          'Gửi thông tin khuyến mãi (nếu khách hàng đồng ý)',
-                          'Cải thiện chất lượng dịch vụ'
-                        ].map((item, index) => (
+                        {infoLegaPolicy.map((item, index) => (
                           <li key={index} className="flex items-start gap-2">
                             <span className="text-green-500">✓</span>
                             <span>{item}</span>
