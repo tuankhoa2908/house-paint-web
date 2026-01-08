@@ -19,6 +19,7 @@ export default function ProductTabs() {
 
 	useEffect(() => {
 		if (categoryParam) {
+			// eslint-disable-next-line react-hooks/set-state-in-effect
 			setActiveTab(categoryParam);
 		}
 	}, [categoryParam]);

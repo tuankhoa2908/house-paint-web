@@ -5,15 +5,20 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import NavLink from "./NavLink";
 import ProductsDropdown from "./ProductsDropdown";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function Header() {
 	const [user, setUser] = useState(null);
-  
+
 	useEffect(() => {
-		// eslint-disable-next-line react-hooks/set-state-in-effect
-		setUser(JSON.parse(localStorage.getItem("user")));
+		try {
+			// eslint-disable-next-line react-hooks/set-state-in-effect
+			setUser(JSON.parse(localStorage.getItem("user")));
+		} catch (error) {
+			return null;
+		}
 	}, []);
+
 	return (
 		<header className="sticky top-0 z-50 w-full border-b border-gray-200 bg-white/80 backdrop-blur-md dark:border-gray-800 dark:bg-black/80">
 			<nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
@@ -47,7 +52,7 @@ export default function Header() {
 					<Button asChild>
 						<Link href={user ? "/profile" : "/login"}>
 							{user ? "Tài khoản" : "Đăng nhập"}
-						</Link> 
+						</Link>
 					</Button>
 				</div>
 			</nav>
