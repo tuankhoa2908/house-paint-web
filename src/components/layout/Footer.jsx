@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { FaFacebook, FaInstagram, FaTiktok, FaYoutube } from "react-icons/fa";
+import { infoStore } from "@/constants/info_store";
 
 export default function Footer() {
 	const currentYear = new Date().getFullYear();
@@ -27,10 +28,10 @@ export default function Footer() {
 						</p>
 						<div className="flex gap-4 mt-4">
 							<p>Theo dõi chúng tôi trên</p>
-							<FaFacebook className="text-2xl" />
-							<FaInstagram className="text-2xl" />
-							<FaYoutube className="text-2xl" />
-							<FaTiktok className="text-2xl" />
+							<FaFacebook href="https://www.facebook.com" target="_blank" className="text-2xl hover:cursor-pointer rounded-full" />
+							<FaInstagram href="https://www.instagram.com" target="_blank" className="text-2xl hover:cursor-pointer rounded-full" />
+							<FaYoutube href="https://www.youtube.com" target="_blank" className="text-2xl hover:cursor-pointer rounded-full" />
+							<FaTiktok href="https://www.tiktok.com" target="_blank" className="text-2xl hover:cursor-pointer rounded-full" />
 						</div>
 					</div>
 
@@ -107,14 +108,14 @@ export default function Footer() {
 						</h3>
 						<ul className="space-y-3 text-sm text-gray-600 dark:text-gray-400">
 							<li>
-								<span className="block">Hotline: 1900-xxxx</span>
+								<span className="block">Hotline: {infoStore.PHONE}</span>
 							</li>
 							<li>
-								<span className="block">Email: sonbinhminh2014@gmail.com</span>
+								<span className="block whitespace-nowrap">Email: {infoStore.EMAIL}</span>
 							</li>
 							<li>
 								<span className="block">
-									Địa chỉ: Đường Trần Hưng Đạo, Xã Ý Yên, TP. Ninh Bình
+									Địa chỉ: {infoStore.ADDRESS}
 								</span>
 							</li>
 						</ul>

@@ -78,7 +78,7 @@ export default function HeroCarousel() {
 
       {/* Content Overlay */}
       <div className="absolute inset-0 z-20 flex items-center">
-        <div className="mx-auto max-w-7xl min-w-4xl px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl min-w-4xl md:min-w-xl px-6 lg:px-8">
           <div className="max-w-4xl">
             <h1 className="text-4xl font-bold tracking-tight text-white sm:text-6xl drop-shadow-lg">
               Sơn Bình Minh
