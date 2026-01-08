@@ -1,6 +1,10 @@
+'use client';
+
 import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
+import NavLink from './NavLink';
+import ProductsDropdown from './ProductsDropdown';
 
 export default function Header() {
   return (
@@ -22,30 +26,16 @@ export default function Header() {
 
         {/* Navigation Links */}
         <div className="hidden items-center gap-8 md:flex">
-          <Link 
-            href="/" 
-            className="text-sm font-medium text-gray-700 transition-colors hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
-          >
+          <NavLink href="/">
             Trang chủ
-          </Link>
-          <Link 
-            href="/products" 
-            className="text-sm font-medium text-gray-700 transition-colors hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
-          >
-            Sản phẩm
-          </Link>
-          <Link 
-            href="/about" 
-            className="text-sm font-medium text-gray-700 transition-colors hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
-          >
+          </NavLink>
+          <ProductsDropdown />
+          <NavLink href="/about">
             Về chúng tôi
-          </Link>
-          <Link 
-            href="/contact" 
-            className="text-sm font-medium text-gray-700 transition-colors hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
-          >
+          </NavLink>
+          <NavLink href="/contact">
             Liên hệ
-          </Link>
+          </NavLink>
         </div>
 
         {/* CTA Button */}

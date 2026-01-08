@@ -251,7 +251,6 @@ export default function ContactPage() {
 										<div className="space-y-1 text-gray-600 dark:text-gray-400">
 											<p>Thứ 2 - Thứ 6: 8:00 - 18:00</p>
 											<p>Thứ 7: 8:00 - 17:00</p>
-											<p>Chủ nhật: 9:00 - 16:00</p>
 										</div>
 									</div>
 								</div>
@@ -278,6 +277,115 @@ export default function ContactPage() {
 								</div>
 							</div>
 						</div>
+					</div>
+				</div>
+			</section>
+
+			{/* Partnership Section */}
+			<section className="py-20 relative overflow-hidden">
+				{/* Background Image */}
+				<div className="absolute inset-0 z-0">
+					<Image
+						src="/images/contact/partnership-bg.png"
+						alt="Partnership Background"
+						fill
+						className="object-cover"
+						sizes="100vw"
+					/>
+					{/* Dark overlay for better text readability */}
+					<div className="absolute inset-0 bg-gradient-to-br from-blue-900/80 via-blue-800/80 to-indigo-900/80" />
+				</div>
+
+				<div className="relative mx-auto max-w-7xl px-6 lg:px-8">
+					<div className="text-center mb-12">
+						<h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+							Bạn muốn đồng hành cùng chúng tôi?
+						</h2>
+						<p className="text-lg text-blue-100 max-w-2xl mx-auto">
+							Chúng tôi luôn chào đón các đối tác tiềm năng. Hãy để lại thông tin của bạn và chúng tôi sẽ liên hệ sớm nhất!
+						</p>
+					</div>
+
+					<div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+						{/* Benefit 1 */}
+						<div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 text-center transition-transform hover:scale-105 hover:bg-white/15">
+							<div className="flex justify-center mb-4">
+								<div className="flex h-16 w-16 items-center justify-center rounded-full bg-white/20">
+									<svg className="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+									</svg>
+								</div>
+							</div>
+							<h3 className="text-xl font-semibold text-white mb-2">
+								Đối tác uy tín
+							</h3>
+							<p className="text-blue-100">
+								Hợp tác với thương hiệu sơn hàng đầu Việt Nam
+							</p>
+						</div>
+
+						{/* Benefit 2 */}
+						<div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 text-center transition-transform hover:scale-105 hover:bg-white/15">
+							<div className="flex justify-center mb-4">
+								<div className="flex h-16 w-16 items-center justify-center rounded-full bg-white/20">
+									<svg className="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+									</svg>
+								</div>
+							</div>
+							<h3 className="text-xl font-semibold text-white mb-2">
+								Lợi nhuận hấp dẫn
+							</h3>
+							<p className="text-blue-100">
+								Chính sách hoa hồng và ưu đãi đặc biệt
+							</p>
+						</div>
+
+						{/* Benefit 3 */}
+						<div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 text-center transition-transform hover:scale-105 hover:bg-white/15">
+							<div className="flex justify-center mb-4">
+								<div className="flex h-16 w-16 items-center justify-center rounded-full bg-white/20">
+									<svg className="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
+									</svg>
+								</div>
+							</div>
+							<h3 className="text-xl font-semibold text-white mb-2">
+								Hỗ trợ toàn diện
+							</h3>
+							<p className="text-blue-100">
+								Đào tạo, marketing và tư vấn chuyên nghiệp
+							</p>
+						</div>
+					</div>
+
+					{/* CTA Button */}
+					<div className="text-center">
+						<Button 
+							size="lg" 
+							className="bg-white hover:bg-blue-50 text-lg px-8 py-6 shadow-xl hover:shadow-2xl transition-all"
+							onClick={() => {
+								const formSection = document.querySelector('form');
+								if (formSection) {
+									formSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+									// Focus on the first input field
+									setTimeout(() => {
+										const firstInput = formSection.querySelector('input');
+										if (firstInput) firstInput.focus();
+									}, 500);
+								}
+							}}
+						>
+							<span className="flex items-center gap-2">
+								Để lại thông tin ngay
+								<svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+								</svg>
+							</span>
+						</Button>
+						<p className="mt-4 text-blue-100 text-sm">
+							Điền thông tin tại phần &ldquo;Gửi thông tin liên hệ&rdquo; phía trên và chúng tôi sẽ sắp xếp lịch tư vấn cho bạn
+						</p>
 					</div>
 				</div>
 			</section>
