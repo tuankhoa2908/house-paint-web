@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
+import { listTextBannerHomePage } from '@/constants/info_store';
 
 const slides = [
   {
@@ -77,15 +78,27 @@ export default function HeroCarousel() {
 
       {/* Content Overlay */}
       <div className="absolute inset-0 z-20 flex items-center">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="max-w-3xl">
+        <div className="mx-auto max-w-7xl min-w-4xl px-6 lg:px-8">
+          <div className="max-w-4xl">
             <h1 className="text-4xl font-bold tracking-tight text-white sm:text-6xl drop-shadow-lg">
-              Sơn Nhà Chất Lượng Cao
+              Sơn Bình Minh
             </h1>
-            <p className="mt-6 text-lg leading-8 text-gray-100 drop-shadow-md">
-              Mang đến màu sắc hoàn hảo cho ngôi nhà của bạn với các sản phẩm sơn 
-              chất lượng cao, bền đẹp và thân thiện với môi trường.
-            </p>
+            
+            {/* Dynamic text that changes with each slide */}
+            <div className="relative mt-6 h-24 overflow-hidden">
+              {listTextBannerHomePage.map((text, index) => (
+                <p
+                  key={index}
+                  className={`absolute inset-0 text-lg leading-8 text-gray-100 drop-shadow-md transition-all duration-700 ${
+                    index === currentSlide
+                      ? 'opacity-100 translate-y-0'
+                      : 'opacity-0 translate-y-4'
+                  }`}
+                >
+                  {text}
+                </p>
+              ))}
+            </div>
             <div className="mt-10 flex items-center gap-x-6">
               <Button variant="glass" size="lg" asChild>
                 <Link href="/products">

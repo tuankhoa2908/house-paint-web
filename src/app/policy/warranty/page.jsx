@@ -3,6 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { FaCheckCircle, FaMoneyBillWave, FaTools, FaClipboardCheck, FaTimesCircle, FaPhone, FaEnvelope, FaMapMarkerAlt, FaShieldAlt } from 'react-icons/fa';
+import { warrantyProcessPolicy } from '@/constants/policy'; 
 
 export const metadata = {
   title: 'Chính sách bảo hành | Sơn Bình Minh',
@@ -154,13 +155,7 @@ export default function WarrantyPage() {
                   4. Quy trình bảo hành
                 </h2>
                 <div className="space-y-4">
-                  {[
-                    { step: 1, title: 'Liên hệ hotline', desc: '1900-xxxx hoặc email info@housepaint.com' },
-                    { step: 2, title: 'Cung cấp thông tin', desc: 'Sản phẩm và hóa đơn mua hàng' },
-                    { step: 3, title: 'Kiểm tra', desc: 'Chuyên viên kỹ thuật xác nhận tình trạng' },
-                    { step: 4, title: 'Xử lý', desc: 'Bảo hành theo quy định (đổi mới hoặc hoàn tiền)' },
-                    { step: 5, title: 'Hoàn tất', desc: 'Giao sản phẩm cho khách hàng' }
-                  ].map((item) => (
+                  {warrantyProcessPolicy.map((item) => (
                     <div key={item.step} className="flex gap-4 p-4 rounded-lg border border-gray-200 bg-white hover:shadow-md transition-shadow">
                       <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blue-600 text-white font-bold">
                         {item.step}

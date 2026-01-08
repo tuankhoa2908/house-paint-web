@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { infoLegaPolicy } from '@/constants/policy.constant';
+import { infoLegaPolicy } from '@/constants/policy';
 
 export const metadata = {
   title: 'Chính sách pháp lý | Sơn Bình Minh',
