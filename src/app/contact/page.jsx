@@ -25,6 +25,10 @@ export default function ContactPage() {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
+		const respone = callApi("post", "new-inquiry", formData);
+		if (respone.code === 200) {
+			
+		}
 		console.log("Form submitted:", formData);
 	};
 
