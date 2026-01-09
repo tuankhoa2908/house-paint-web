@@ -17,6 +17,9 @@
 /.next/
 /out/
 
+# config
+/src/configs
+
 # production
 /build
 

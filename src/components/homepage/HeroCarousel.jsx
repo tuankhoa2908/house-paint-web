@@ -78,28 +78,28 @@ export default function HeroCarousel() {
 
       {/* Content Overlay */}
       <div className="absolute inset-0 z-20 flex items-center">
-        <div className="mx-auto max-w-7xl min-w-4xl md:min-w-xl px-6 lg:px-8">
-          <div className="max-w-4xl">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="text-center">
             <h1 className="text-4xl font-bold tracking-tight text-white sm:text-6xl drop-shadow-lg">
               Sơn Bình Minh
             </h1>
             
             {/* Dynamic text that changes with each slide */}
-            <div className="relative mt-6 h-24 overflow-hidden">
+            <div className="relative mt-6 min-h-[4rem]">
               {listTextBannerHomePage.map((text, index) => (
                 <p
                   key={index}
-                  className={`absolute inset-0 text-lg leading-8 text-gray-100 drop-shadow-md transition-all duration-700 ${
+                  className={`text-lg leading-8 text-white drop-shadow-md max-w-3xl mx-auto transition-all duration-700 ${
                     index === currentSlide
-                      ? 'opacity-100 translate-y-0'
-                      : 'opacity-0 translate-y-4'
+                      ? 'opacity-100'
+                      : 'opacity-0 absolute inset-0'
                   }`}
                 >
                   {text}
                 </p>
               ))}
             </div>
-            <div className="mt-10 flex items-center gap-x-6">
+            <div className="mt-10 flex items-center justify-center gap-x-6">
               <Button variant="glass" size="lg" asChild>
                 <Link href="/products">
                   Xem sản phẩm
