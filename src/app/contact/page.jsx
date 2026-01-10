@@ -4,7 +4,8 @@ import { useState } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { infoStore } from "@/constants/info_store";
-import { callApi } from "@/api/callAPI";
+import { customerService } from "@/services/customerService";
+import { toast } from "sonner";
 
 export default function ContactPage() {
 	const [formData, setFormData] = useState({
@@ -14,6 +15,7 @@ export default function ContactPage() {
 		address: "",
 		message: "",
 	});
+	const [isLoading, setIsLoading] = useState(false);
 
 	const handleChange = (e) => {
 		const { name, value } = e.target;
@@ -23,13 +25,41 @@ export default function ContactPage() {
 		}));
 	};
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
-		const respone = callApi("post", "new-inquiry", formData);
-		if (respone.code === 200) {
+		setIsLoading(true);
+
+		try {
+			const response = await customerService.newInquiry(formData);
 			
+			if (response?.code === 200) {
+				toast.success("Gửi thông tin thành công!", {
+					description: "Chúng tôi sẽ liên hệ với bạn sớm nhất có thể.",
+					duration: 3000,
+				});
+				
+				// Reset form
+				setFormData({
+					fullName: "",
+					phone: "",
+					email: "",
+					address: "",
+					message: "",
+				});
+			} else {
+				toast.error("Không thể gửi thông tin", {
+					description: response?.message || "Vui lòng thử lại sau ít phút.",
+					duration: 3000,
+				});
+			}
+		} catch (error) {
+			toast.error("Có lỗi xảy ra", {
+				description: "Vui lòng kiểm tra kết nối và thử lại.",
+				duration: 3000,
+			});
+		} finally {
+			setIsLoading(false);
 		}
-		console.log("Form submitted:", formData);
 	};
 
 	return (
@@ -196,8 +226,13 @@ export default function ContactPage() {
 								</div>
 
 								{/* Submit Button */}
-								<Button type="submit" className="w-full" size="lg">
-									Gửi thông tin
+								<Button 
+									type="submit" 
+									className="w-full" 
+									size="lg"
+									disabled={isLoading}
+								>
+									{isLoading ? "Đang gửi..." : "Gửi thông tin"}
 								</Button>
 							</form>
 						</div>

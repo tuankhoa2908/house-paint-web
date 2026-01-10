@@ -1,103 +1,9 @@
 import axios from "axios";
 import { API_URL, VERSION_API } from "@/configs/config";
-
-// Tạo instance axios với cấu hình mặc định
-const axiosInstance = axios.create({
-	baseURL: `${API_URL}/${VERSION_API}`,
-	// timeout: 10000, // Uncomment nếu cần timeout
-});
-
-// Flag để prevent multiple token renewal đồng thời
-let isRenewingToken = false;
+import { toast } from "sonner";
 
 /**
- * Request Interceptor - Tự động thêm token và set headers
- */
-axiosInstance.interceptors.request.use(
-	(config) => {
-		// Lấy token từ localStorage
-		const token =
-			typeof window !== "undefined" ? localStorage.getItem("token_user") : null;
-
-		if (token) {
-			config.headers.token = token;
-		}
-
-		// Set Content-Type nếu chưa có
-		if (!config.headers["Content-Type"]) {
-			config.headers["Content-Type"] = "application/json";
-		}
-
-		return config;
-	},
-	(error) => {
-		return Promise.reject(error);
-	}
-);
-
-/**
- * Response Interceptor - Xử lý response và error
- */
-axiosInstance.interceptors.response.use(
-	(response) => {
-		// Trả về response nguyên gốc (không tự động lấy data)
-		return response;
-	},
-	async (error) => {
-		if (error.response) {
-			const { status, data } = error.response;
-
-			// Case 1: Token hết hạn (401)
-			if (
-				status === 401 &&
-				data?.msg === "Token hết hạn, bạn hãy đăng nhập lại!"
-			) {
-				if (typeof window !== "undefined") {
-					localStorage.removeItem("token_user");
-					alert("Phiên đăng nhập hết hạn, vui lòng đăng nhập lại");
-
-					// Redirect về login với current pathname
-					if (window.location.pathname !== "/login") {
-						const redirect = encodeURIComponent(
-							window.location.pathname + window.location.search
-						);
-						window.location.href = `/login?redirect=${redirect}`;
-					}
-				}
-			}
-
-			// Case 2: Token no longer true - Quyền đã thay đổi, cần renew token
-			else if (
-				data?.msg === "Token no longer true" &&
-				data?.data?.renew_token
-			) {
-				if (isRenewingToken) return Promise.reject(error);
-
-				isRenewingToken = true;
-
-				if (typeof window !== "undefined") {
-					localStorage.setItem("token_user", data.data.renew_token);
-
-					// Hiển thị thông báo (có thể dùng toast library)
-					alert(
-						"Hệ thống phát hiện quyền của bạn đã thay đổi, trang sẽ tự động tải lại sau vài giây"
-					);
-
-					// Reload page sau 2.5s
-					setTimeout(() => {
-						isRenewingToken = false;
-						window.location.reload();
-					}, 2500);
-				}
-			}
-		}
-
-		return Promise.reject(error);
-	}
-);
-
-/**
- * Main API Call Function
+ * Main API Call Function for Customer Website
  * @param {string} endpoint - API endpoint (không cần dấu / ở đầu)
  * @param {string} method - HTTP method: 'get', 'post', 'put', 'patch', 'delete'
  * @param {object|FormData} body - Request body hoặc params (cho GET)
@@ -105,6 +11,7 @@ axiosInstance.interceptors.response.use(
  */
 export default async function callApi(endpoint, method = "get", body) {
 	try {
+		// Lấy token từ localStorage (nếu có)
 		const token =
 			typeof window !== "undefined" ? localStorage.getItem("token_user") : null;
 
@@ -117,16 +24,14 @@ export default async function callApi(endpoint, method = "get", body) {
 
 		// Set headers
 		const headers = {
-			token,
-			...(isFormData
-				? { "Content-Type": "multipart/form-data" }
-				: { "Content-Type": "application/json" }),
+			...(token && { token }),
+			"Content-Type": isFormData ? "multipart/form-data" : "application/json",
 		};
 
 		// Cấu hình request
 		const config = {
 			method: method.toLowerCase(),
-			url: `${API_URL}/${VERSION_API}/${endpoint}`,
+			url: `${API_URL}/api/${VERSION_API}/${endpoint}`,
 			headers,
 		};
 
@@ -137,27 +42,36 @@ export default async function callApi(endpoint, method = "get", body) {
 			config.data = body;
 		}
 
-		const { data } = await axiosInstance(config);
+		const { data } = await axios(config);
 		return data;
 	} catch (err) {
+		console.log(err);
 		const { status, data } = err.response || {};
 
-		// Hiển thị error message cho lỗi 500
-		if (status === 500) {
-			const errorMsg =
-				process.env.NODE_ENV === "development"
-					? data?.msg || "Lỗi server"
-					: "Có lỗi trong quá trình xử lý";
-
-			// Có thể thay bằng toast library của bạn
-			console.error(errorMsg);
-			alert(errorMsg);
+		// Xử lý lỗi 401 - Unauthorized
+		if (status === 401) {
+			if (typeof window !== "undefined") {
+				localStorage.removeItem("token_user");
+				
+				// Chỉ hiển thị toast nếu có message từ server
+				if (data?.msg) {
+					toast.error("Yêu cầu đăng nhập", {
+						description: "Vui lòng đăng nhập để tiếp tục",
+						duration: 3000,
+					});
+				}
+				
+				// Redirect về login nếu không phải trang login
+				if (window.location.pathname !== "/login") {
+					const redirect = encodeURIComponent(
+						window.location.pathname + window.location.search
+					);
+					window.location.href = `/login?redirect=${redirect}`;
+				}
+			}
 		}
 
-		// Vẫn return data để component có thể handle
+		// Return data để component có thể tự xử lý error
 		return data;
 	}
 }
-
-// Export axios instance nếu cần sử dụng trực tiếp
-export { axiosInstance };
